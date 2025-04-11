@@ -1,12 +1,45 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search, ShoppingCart, Menu, X, User } from "lucide-react";
+import { Search, ShoppingCart, Menu, X, User, Sun, Moon } from "lucide-react";
 import { Button } from "./ui/button";
+import { Toggle } from "./ui/toggle";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount] = useState(2);
+  const [isDarkMode, setIsDarkMode] = useState(true); // Default is dark mode
+
+  // Handle theme change
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    
+    if (newTheme) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    // Store preference
+    localStorage.setItem("theme", newTheme ? "dark" : "light");
+  };
+
+  // Check for saved theme preference
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    
+    if (savedTheme) {
+      const prefersDark = savedTheme === "dark";
+      setIsDarkMode(prefersDark);
+      
+      if (prefersDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    }
+  }, []);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -42,6 +75,16 @@ const Navbar = () => {
           
           {/* Icons */}
           <div className="flex items-center gap-1 md:gap-2">
+            <Toggle 
+              pressed={isDarkMode}
+              onPressedChange={toggleTheme}
+              className="text-islamic-green hover:text-islamic-green/90"
+              aria-label="Toggle theme"
+              size="sm"
+            >
+              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </Toggle>
+            
             <Button variant="ghost" size="sm" className="text-islamic-green sm:hidden">
               <Search size={18} />
             </Button>

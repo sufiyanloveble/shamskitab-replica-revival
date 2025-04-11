@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
-import { ArrowRight, Percent } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 import BookCard from "./BookCard";
 import { BookProps } from "./BookCard";
 import { Button } from "./ui/button";
@@ -10,6 +11,41 @@ interface DealsOfTheWeekProps {
 }
 
 const DealsOfTheWeek = ({ deals }: DealsOfTheWeekProps) => {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScrollability = () => {
+    if (!carouselRef.current) return;
+    
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10); // 10px buffer
+  };
+
+  useEffect(() => {
+    checkScrollability();
+    window.addEventListener('resize', checkScrollability);
+    return () => window.removeEventListener('resize', checkScrollability);
+  }, [deals]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!carouselRef.current) return;
+
+    const scrollAmount = carouselRef.current.clientWidth * 0.8;
+    const newScrollLeft = direction === 'left' 
+      ? carouselRef.current.scrollLeft - scrollAmount 
+      : carouselRef.current.scrollLeft + scrollAmount;
+    
+    carouselRef.current.scrollTo({
+      left: newScrollLeft,
+      behavior: 'smooth'
+    });
+
+    // Update buttons after scroll animation completes
+    setTimeout(checkScrollability, 500);
+  };
+
   return (
     <section className="py-8 bg-background">
       <div className="container mx-auto px-3 md:px-4">
@@ -25,12 +61,47 @@ const DealsOfTheWeek = ({ deals }: DealsOfTheWeekProps) => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {deals.map((book) => (
-            <div key={book.id}>
-              <BookCard {...book} />
-            </div>
-          ))}
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="icon"
+              className="h-8 w-8 rounded-full border-islamic-green text-islamic-green hover:bg-islamic-green/10"
+              onClick={() => scroll('left')}
+              disabled={!canScrollLeft}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button 
+              variant="outline" 
+              size="icon"
+              className="h-8 w-8 rounded-full border-islamic-green text-islamic-green hover:bg-islamic-green/10"
+              onClick={() => scroll('right')}
+              disabled={!canScrollRight}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+        
+        <div 
+          className="overflow-hidden relative"
+          onScroll={checkScrollability}
+        >
+          <div 
+            ref={carouselRef}
+            className="flex gap-4 overflow-x-auto pb-2 snap-x scrollbar-none"
+            style={{ scrollbarWidth: 'none' }}
+          >
+            {deals.map((book) => (
+              <div 
+                key={book.id} 
+                className="min-w-[160px] md:min-w-[220px] snap-start"
+              >
+                <BookCard {...book} />
+              </div>
+            ))}
+          </div>
         </div>
         
         <div className="flex justify-center mt-6 md:hidden">

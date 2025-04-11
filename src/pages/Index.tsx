@@ -10,7 +10,6 @@ import CustomerPerks from "../components/CustomerPerks";
 import TestimonialsCarousel from "../components/TestimonialsCarousel";
 import BlogSection from "../components/BlogSection";
 import NewsletterSubscription from "../components/NewsletterSubscription";
-import QuoteSection from "../components/QuoteSection";
 import Footer from "../components/Footer";
 import { 
   featuredBooks, 
@@ -49,8 +48,6 @@ const Index = () => {
         <CustomerPerks />
         
         <TestimonialsCarousel testimonials={testimonials} />
-        
-        <QuoteSection />
         
         <BookCarousel 
           title="New Arrivals" 

@@ -33,11 +33,11 @@ const NewsletterSubscription = () => {
           </div>
           
           <h2 className="text-2xl md:text-3xl font-bold mb-3">
-            Subscribe to our newsletter!
+            Subscribe to our Newsletter
           </h2>
           
           <p className="text-muted-foreground mb-6">
-            Stay updated with new releases, exclusive offers & author events.
+            Stay updated with new arrivals and special offers
           </p>
           
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -58,10 +58,6 @@ const NewsletterSubscription = () => {
               {isSubmitting ? "Subscribing..." : "Subscribe"}
             </Button>
           </form>
-          
-          <p className="text-xs text-muted-foreground mt-4">
-            We respect your privacy and will never share your information.
-          </p>
         </div>
       </div>
     </section>
