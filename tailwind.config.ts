@@ -64,10 +64,10 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				islamic: {
-					green: '#025E4E',
-					gold: '#D4A958',
+					green: '#00B6AA',
+					gold: '#E7B550',
 					light: '#F5F2EA',
-					dark: '#2D3639'
+					dark: '#1A1A1A'
 				}
 			},
 			fontFamily: {

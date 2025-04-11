@@ -8,9 +8,10 @@ interface BookCarouselProps {
   title: string;
   subtitle?: string;
   books: BookProps[];
+  showViewAll?: boolean;
 }
 
-const BookCarousel = ({ title, subtitle, books }: BookCarouselProps) => {
+const BookCarousel = ({ title, subtitle, books, showViewAll = false }: BookCarouselProps) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -47,11 +48,16 @@ const BookCarousel = ({ title, subtitle, books }: BookCarouselProps) => {
   };
 
   return (
-    <section className="py-8">
+    <section className="py-8 bg-background">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-end mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-islamic-dark">{title}</h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+              {showViewAll && (
+                <span className="bg-islamic-gold/20 text-islamic-gold text-xs px-2 py-1 rounded">VIEW ALL</span>
+              )}
+            </div>
             {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
           </div>
           
@@ -59,7 +65,7 @@ const BookCarousel = ({ title, subtitle, books }: BookCarouselProps) => {
             <Button 
               variant="outline" 
               size="icon"
-              className="rounded-full border-islamic-green text-islamic-green hover:bg-islamic-light"
+              className="rounded-full border-islamic-green text-islamic-green hover:bg-islamic-green/10"
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
             >
@@ -68,7 +74,7 @@ const BookCarousel = ({ title, subtitle, books }: BookCarouselProps) => {
             <Button 
               variant="outline" 
               size="icon"
-              className="rounded-full border-islamic-green text-islamic-green hover:bg-islamic-light"
+              className="rounded-full border-islamic-green text-islamic-green hover:bg-islamic-green/10"
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
             >
@@ -89,7 +95,7 @@ const BookCarousel = ({ title, subtitle, books }: BookCarouselProps) => {
             {books.map((book) => (
               <div 
                 key={book.id} 
-                className="min-w-[240px] snap-start"
+                className="min-w-[180px] md:min-w-[240px] snap-start"
               >
                 <BookCard {...book} />
               </div>

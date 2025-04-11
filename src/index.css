@@ -7,6 +7,38 @@
 
 @layer base {
   :root {
+    --background: 220 14% 10%;
+    --foreground: 210 20% 98%;
+
+    --card: 220 14% 12%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 220 14% 12%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 174 100% 36%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 43 74% 61%;
+    --secondary-foreground: 220 14% 10%;
+
+    --muted: 220 14% 20%;
+    --muted-foreground: 210 20% 80%;
+
+    --accent: 220 14% 16%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 14% 20%;
+    --input: 220 14% 20%;
+    --ring: 43 74% 61%;
+
+    --radius: 0.5rem;
+  }
+
+  .light {
     --background: 45 33% 98%;
     --foreground: 170 20% 30%;
 
@@ -34,38 +66,6 @@
     --border: 45 30% 85%;
     --input: 45 30% 85%;
     --ring: 161 96% 19%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 170 25% 12%;
-    --foreground: 45 33% 90%;
-
-    --card: 170 25% 15%;
-    --card-foreground: 45 33% 90%;
-
-    --popover: 170 25% 15%;
-    --popover-foreground: 45 33% 90%;
-
-    --primary: 161 70% 25%;
-    --primary-foreground: 46 65% 80%;
-
-    --secondary: 46 65% 40%;
-    --secondary-foreground: 45 33% 98%;
-
-    --muted: 170 25% 18%;
-    --muted-foreground: 45 20% 70%;
-
-    --accent: 170 25% 18%;
-    --accent-foreground: 45 33% 90%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 170 25% 25%;
-    --input: 170 25% 25%;
-    --ring: 45 33% 70%;
   }
 }
 
@@ -80,8 +80,8 @@
 }
 
 .pattern-bg {
-  background-color: #f5f2ea;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23025e4e' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-color: #1A1A1A;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300B6AA' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 .arabic-text {
@@ -92,4 +92,29 @@
 
 .book-card:hover .book-hover-overlay {
   opacity: 1;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.badge {
+  @apply absolute top-2 right-2 px-2 py-1 text-xs font-bold rounded-md z-10;
+}
+
+.badge-new {
+  @apply bg-islamic-green text-white;
+}
+
+.badge-sale {
+  @apply bg-red-500 text-white;
+}
+
+.badge-bestseller {
+  @apply bg-islamic-gold text-black;
 }
