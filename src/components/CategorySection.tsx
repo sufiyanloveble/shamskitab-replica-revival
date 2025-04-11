@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 interface Category {
   id: string;
@@ -15,23 +16,20 @@ interface CategorySectionProps {
 
 const CategorySection = ({ categories }: CategorySectionProps) => {
   return (
-    <section className="py-12 bg-islamic-light/50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-islamic-dark mb-2">Book Categories</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore our collection organized by categories to find the perfect books for your spiritual journey
-          </p>
+    <section className="py-8 bg-card border-y border-border/50">
+      <div className="container mx-auto px-3 md:px-4">
+        <div className="section-heading">
+          <h2>Book Categories</h2>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
           {categories.map((category) => (
             <Link 
               to={`/category/${category.id}`}
               key={category.id}
-              className="group block bg-white rounded-lg overflow-hidden shadow-sm border border-border transition-all duration-300 hover:shadow-md"
+              className="group block bg-background rounded-lg overflow-hidden shadow-md border border-border/40 transition-all duration-300 hover:shadow-lg"
             >
-              <div className="h-48 overflow-hidden">
+              <div className="h-32 md:h-40 overflow-hidden">
                 <img 
                   src={category.image}
                   alt={category.name}
@@ -39,16 +37,18 @@ const CategorySection = ({ categories }: CategorySectionProps) => {
                 />
               </div>
               
-              <div className="p-5">
-                <h3 className="font-semibold text-lg text-islamic-dark mb-2 group-hover:text-islamic-green transition-colors">
+              <div className="p-3">
+                <h3 className="font-medium text-sm md:text-base text-foreground mb-1 group-hover:text-islamic-green transition-colors">
                   {category.name}
                 </h3>
-                <p className="text-muted-foreground text-sm mb-3">{category.description}</p>
+                <p className="text-muted-foreground text-xs mb-2 line-clamp-2">{category.description}</p>
                 <div className="flex justify-between items-center">
-                  <span className="text-xs bg-islamic-light text-islamic-dark px-3 py-1 rounded-full">
+                  <span className="text-xs bg-accent/80 text-muted-foreground px-2 py-0.5 rounded-full">
                     {category.itemCount} Books
                   </span>
-                  <span className="text-islamic-green text-sm font-medium">Explore →</span>
+                  <span className="text-islamic-green text-xs font-medium flex items-center gap-1">
+                    Explore <ArrowRight size={12} />
+                  </span>
                 </div>
               </div>
             </Link>

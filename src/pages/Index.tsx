@@ -20,6 +20,7 @@ const Index = () => {
           subtitle="Our most popular and recommended books"
           books={featuredBooks}
           showViewAll
+          badge="Top picks"
         />
         
         <CategorySection categories={categories} />
@@ -31,12 +32,14 @@ const Index = () => {
           subtitle="The latest additions to our collection"
           books={newArrivals}
           showViewAll
+          badge="New"
         />
         
         <BookCarousel 
           title="Bestselling Books" 
           books={featuredBooks.slice(0, 5)}
           showViewAll
+          badge="Popular"
         />
       </main>
       

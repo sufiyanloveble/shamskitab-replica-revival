@@ -40,13 +40,13 @@ const BookCard = ({
 
   const discount = discountedPrice ? Math.round((1 - discountedPrice / price) * 100) : 0;
 
-  // Convert to Indian Rupees (assuming 1 USD = 75 INR)
+  // Convert to Indian Rupees
   const inrPrice = Math.round(price * 75);
   const inrDiscountedPrice = discountedPrice ? Math.round(discountedPrice * 75) : undefined;
 
   return (
     <div 
-      className="book-card group relative bg-card rounded-lg overflow-hidden shadow-sm border border-border transition-all duration-300 hover:shadow-md"
+      className="book-card group relative bg-card rounded-lg overflow-hidden shadow-md border border-border/40 transition-all duration-300 hover:shadow-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -71,7 +71,7 @@ const BookCard = ({
             alt={title} 
             className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
           />
-          <div className="book-hover-overlay absolute inset-0 bg-black bg-opacity-70 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center gap-2">
+          <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 group-hover:opacity-100">
             <Button 
               variant="secondary" 
               size="sm" 
@@ -96,15 +96,15 @@ const BookCard = ({
           </div>
         </div>
         
-        <div className="p-4">
-          <h3 className="font-medium text-foreground truncate">{title}</h3>
-          <p className="text-muted-foreground text-sm mb-2">{author}</p>
+        <div className="p-3">
+          <h3 className="font-medium text-foreground truncate text-sm">{title}</h3>
+          <p className="text-muted-foreground text-xs mb-2">{author}</p>
           
           <div className="flex items-center gap-2">
             {inrDiscountedPrice ? (
               <>
                 <span className="text-islamic-green font-bold">₹{inrDiscountedPrice}</span>
-                <span className="text-muted-foreground line-through text-sm">₹{inrPrice}</span>
+                <span className="text-muted-foreground text-sm offer-price">₹{inrPrice}</span>
               </>
             ) : (
               <span className="text-islamic-green font-bold">₹{inrPrice}</span>
