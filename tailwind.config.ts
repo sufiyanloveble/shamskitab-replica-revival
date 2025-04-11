@@ -71,7 +71,7 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
+				sans: ['Inter', 'Poppins', 'sans-serif'],
 				arabic: ['Amiri', 'serif'],
 			},
 			borderRadius: {

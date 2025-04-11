@@ -40,10 +40,6 @@ const BookCard = ({
 
   const discount = discountedPrice ? Math.round((1 - discountedPrice / price) * 100) : 0;
 
-  // Convert to Indian Rupees
-  const inrPrice = Math.round(price * 75);
-  const inrDiscountedPrice = discountedPrice ? Math.round(discountedPrice * 75) : undefined;
-
   return (
     <div 
       className="book-card group relative bg-card rounded-lg overflow-hidden shadow-md border border-border/40 transition-all duration-300 hover:shadow-lg"
@@ -71,7 +67,7 @@ const BookCard = ({
             alt={title} 
             className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 group-hover:opacity-100">
+          <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 book-hover-overlay group-hover:opacity-100">
             <Button 
               variant="secondary" 
               size="sm" 
@@ -101,13 +97,13 @@ const BookCard = ({
           <p className="text-muted-foreground text-xs mb-2">{author}</p>
           
           <div className="flex items-center gap-2">
-            {inrDiscountedPrice ? (
+            {discountedPrice ? (
               <>
-                <span className="text-islamic-green font-bold">₹{inrDiscountedPrice}</span>
-                <span className="text-muted-foreground text-sm offer-price">₹{inrPrice}</span>
+                <span className="text-islamic-green font-bold">₹{discountedPrice}</span>
+                <span className="text-muted-foreground text-sm offer-price">₹{price}</span>
               </>
             ) : (
-              <span className="text-islamic-green font-bold">₹{inrPrice}</span>
+              <span className="text-islamic-green font-bold">₹{price}</span>
             )}
           </div>
         </div>

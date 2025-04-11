@@ -3,9 +3,24 @@ import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import BookCarousel from "../components/BookCarousel";
 import CategorySection from "../components/CategorySection";
+import DealsOfTheWeek from "../components/DealsOfTheWeek";
+import PremiumCollections from "../components/PremiumCollections";
+import SubscriptionBox from "../components/SubscriptionBox";
+import CustomerPerks from "../components/CustomerPerks";
+import TestimonialsCarousel from "../components/TestimonialsCarousel";
+import BlogSection from "../components/BlogSection";
+import NewsletterSubscription from "../components/NewsletterSubscription";
 import QuoteSection from "../components/QuoteSection";
 import Footer from "../components/Footer";
-import { featuredBooks, newArrivals, categories } from "../data/books";
+import { 
+  featuredBooks, 
+  newArrivals, 
+  categories, 
+  dealsOfTheWeek, 
+  premiumCollections,
+  testimonials,
+  blogPosts
+} from "../data/books";
 
 const Index = () => {
   return (
@@ -15,6 +30,10 @@ const Index = () => {
       <main className="flex-grow">
         <HeroSection />
         
+        <DealsOfTheWeek deals={dealsOfTheWeek} />
+        
+        <CategorySection categories={categories} />
+        
         <BookCarousel 
           title="Featured Books" 
           subtitle="Our most popular and recommended books"
@@ -23,7 +42,13 @@ const Index = () => {
           badge="Top picks"
         />
         
-        <CategorySection categories={categories} />
+        <PremiumCollections collections={premiumCollections} />
+        
+        <SubscriptionBox />
+        
+        <CustomerPerks />
+        
+        <TestimonialsCarousel testimonials={testimonials} />
         
         <QuoteSection />
         
@@ -35,12 +60,9 @@ const Index = () => {
           badge="New"
         />
         
-        <BookCarousel 
-          title="Bestselling Books" 
-          books={featuredBooks.slice(0, 5)}
-          showViewAll
-          badge="Popular"
-        />
+        <BlogSection posts={blogPosts} />
+        
+        <NewsletterSubscription />
       </main>
       
       <Footer />
