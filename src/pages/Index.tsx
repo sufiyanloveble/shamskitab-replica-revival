@@ -21,10 +21,15 @@ import {
   blogPosts
 } from "../data/books";
 
-const Index = () => {
+interface IndexProps {
+  theme: "light" | "dark";
+  toggleTheme: () => void;
+}
+
+const Index = ({ theme, toggleTheme }: IndexProps) => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       
       <main className="flex-grow">
         <HeroSection />

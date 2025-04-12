@@ -121,7 +121,7 @@
 }
 
 .badge {
-  @apply absolute top-2 right-2 px-2 py-1 text-xs font-bold rounded-md z-10;
+  @apply absolute top-1.5 right-1.5 px-1.5 py-0.5 text-[10px] font-bold rounded-md z-10;
 }
 
 .badge-new {
@@ -159,6 +159,21 @@
 
 .section-badge {
   @apply bg-islamic-gold/30 text-islamic-gold text-xs px-2 py-1 rounded ml-2 uppercase;
+}
+
+/* Light theme specific improvements for text visibility */
+:root:not(.dark) .pattern-bg {
+  background-color: rgba(242, 242, 247, 1); /* Light background */
+}
+
+:root:not(.dark) .pattern-bg [class*="bg-cover"] {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), var(--bg-url) !important;
+}
+
+:root:not(.dark) .pattern-bg h1,
+:root:not(.dark) .pattern-bg p,
+:root:not(.dark) .pattern-bg span {
+  @apply text-white; /* Ensure text is visible on dark overlays in light mode */
 }
 
 /* Improved mobile styling */
@@ -244,4 +259,20 @@
   .pulse-animation {
     animation: pulse 2s infinite ease-in-out;
   }
+}
+
+/* Performance optimizations */
+:root {
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px;
+}
+
+/* Fix subscription box sizing issues */
+.subscription-options button {
+  height: 38px;
+}
+
+/* Improve text contrast in light mode */
+.light .text-muted-foreground {
+  color: rgba(60, 60, 80, 0.85);
 }

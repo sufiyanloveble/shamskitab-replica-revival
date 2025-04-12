@@ -85,32 +85,9 @@ const TestimonialsCarousel = ({ testimonials }: TestimonialsCarouselProps) => {
                 </div>
               </div>
             </div>
-            
-            {/* Desktop navigation buttons */}
-            <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 md:flex hidden">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 rounded-full border-islamic-green text-islamic-green bg-background hover:bg-islamic-green/10"
-                onClick={goToPrevious}
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-            </div>
-            
-            <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 md:flex hidden">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 rounded-full border-islamic-green text-islamic-green bg-background hover:bg-islamic-green/10"
-                onClick={goToNext}
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
           </div>
           
-          {/* Mobile navigation buttons - now always visible */}
+          {/* Single set of navigation buttons (centered for all devices) */}
           <div className="flex justify-center gap-3 mt-4">
             <Button
               variant="outline"

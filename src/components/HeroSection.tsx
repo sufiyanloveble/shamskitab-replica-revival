@@ -44,14 +44,14 @@ const HeroSection = () => {
 
   return (
     <section className="bg-accent pattern-bg overflow-hidden">
-      <Carousel className="w-full" opts={{ loop: true }} setApi={() => {}} index={activeIndex}>
+      <Carousel className="w-full" opts={{ loop: true }} setApi={() => {}} value={activeIndex}>
         <CarouselContent>
           {heroSlides.map((slide) => (
             <CarouselItem key={slide.id}>
               <div 
                 className={`py-10 md:py-16 ${slide.bgClass} bg-cover bg-center relative`} 
                 style={{ 
-                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${slide.bgImage})`,
+                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(${slide.bgImage})`,
                   backgroundSize: 'cover'
                 }}
               >

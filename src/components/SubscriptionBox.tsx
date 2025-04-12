@@ -35,8 +35,8 @@ const SubscriptionBox = () => {
               </div>
             </div>
             
-            {/* Content side */}
-            <div className="p-6 md:p-8">
+            {/* Content side - fixed height to prevent resizing */}
+            <div className="p-6 md:p-8 h-full">
               <h3 className="text-xl font-medium mb-4">What's Included:</h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
