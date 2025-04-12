@@ -44,10 +44,10 @@ const HeroSection = () => {
 
   return (
     <section className="bg-accent pattern-bg overflow-hidden">
-      <Carousel className="w-full" opts={{ loop: true }} setApi={() => {}} value={activeIndex}>
+      <Carousel className="w-full" opts={{ loop: true }} setApi={() => {}}>
         <CarouselContent>
-          {heroSlides.map((slide) => (
-            <CarouselItem key={slide.id}>
+          {heroSlides.map((slide, index) => (
+            <CarouselItem key={slide.id} className={index === activeIndex ? "block" : "hidden"}>
               <div 
                 className={`py-10 md:py-16 ${slide.bgClass} bg-cover bg-center relative`} 
                 style={{ 
