@@ -1,9 +1,7 @@
 
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
+import { Button } from "./ui/button";
+import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 
 const heroSlides = [
   {
@@ -11,6 +9,7 @@ const heroSlides = [
     title: "Choose Your Dream Book",
     subtitle: "SALES UP TO 70% OFF",
     description: "Welcome to your ultimate book paradise! Explore a wondrous collection of literature spanning a multitude of genres.",
+    bgImage: "https://images.unsplash.com/photo-1521123845560-14093637aa7d?q=80&w=1470&auto=format&fit=crop",
     bgClass: "pattern-bg",
   },
   {
@@ -18,6 +17,7 @@ const heroSlides = [
     title: "Premium Collections",
     subtitle: "SPECIAL EDITIONS",
     description: "Discover our handpicked collection of premium books, limited editions, and signed copies from renowned authors.",
+    bgImage: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1470&auto=format&fit=crop",
     bgClass: "bg-accent pattern-bg",
   },
   {
@@ -25,18 +25,36 @@ const heroSlides = [
     title: "New Arrivals Every Week",
     subtitle: "FRESH READS",
     description: "Stay updated with the latest literary masterpieces from across the globe, handpicked for our discerning readers.",
+    bgImage: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=1470&auto=format&fit=crop",
     bgClass: "pattern-bg", 
   }
 ];
 
 const HeroSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % heroSlides.length);
+    }, 5000); // Change slide every 5 seconds
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="bg-accent pattern-bg overflow-hidden">
-      <Carousel className="w-full" opts={{ loop: true }}>
+      <Carousel className="w-full" opts={{ loop: true }} setApi={() => {}} index={activeIndex}>
         <CarouselContent>
           {heroSlides.map((slide) => (
             <CarouselItem key={slide.id}>
-              <div className={`py-10 md:py-16 ${slide.bgClass}`}>
+              <div 
+                className={`py-10 md:py-16 ${slide.bgClass} bg-cover bg-center relative`} 
+                style={{ 
+                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${slide.bgImage})`,
+                  backgroundSize: 'cover'
+                }}
+              >
                 <div className="container mx-auto px-4">
                   <div className="max-w-xl">
                     <span className="text-islamic-gold font-medium mb-2 block text-sm md:text-base uppercase tracking-wide">
@@ -62,10 +80,6 @@ const HeroSection = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="container mx-auto px-4 relative">
-          <CarouselPrevious className="absolute left-2 md:-left-2 top-1/2 h-8 w-8 border-islamic-green bg-background/80 backdrop-blur-sm text-islamic-green hover:bg-islamic-green/20" />
-          <CarouselNext className="absolute right-2 md:-right-2 top-1/2 h-8 w-8 border-islamic-green bg-background/80 backdrop-blur-sm text-islamic-green hover:bg-islamic-green/20" />
-        </div>
       </Carousel>
     </section>
   );

@@ -2,16 +2,25 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Set dark mode by default
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
+
+  // Initialize theme from local storage or set default
   useEffect(() => {
-    document.documentElement.classList.add("dark");
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      document.documentElement.classList.remove("dark");
+      setTheme("light");
+    } else {
+      document.documentElement.classList.add("dark");
+      setTheme("dark");
+    }
   }, []);
 
   return (

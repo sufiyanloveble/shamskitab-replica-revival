@@ -49,7 +49,7 @@ const DealsOfTheWeek = ({ deals }: DealsOfTheWeekProps) => {
   return (
     <section className="py-8 bg-background">
       <div className="container mx-auto px-3 md:px-4">
-        <div className="section-heading">
+        <div className="section-heading flex justify-between items-center">
           <h2>Deals of the Week</h2>
           <span className="section-badge">Up to 67% OFF</span>
         </div>

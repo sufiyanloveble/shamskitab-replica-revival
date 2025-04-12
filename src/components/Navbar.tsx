@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, ShoppingCart, Menu, X, User, Sun, Moon } from "lucide-react";
 import { Button } from "./ui/button";
-import { useToast } from "../hooks/use-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount] = useState(2);
   const [isDarkMode, setIsDarkMode] = useState(true); // Default is dark mode
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // Handle theme change
   const toggleTheme = () => {
@@ -32,6 +32,15 @@ const Navbar = () => {
     if (searchQuery.trim()) {
       // In a real app, this would navigate to search results
       setSearchQuery("");
+      setIsSearchOpen(false);
+    }
+  };
+
+  // Handle mobile search toggle
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+    if (!isSearchOpen && isMenuOpen) {
+      setIsMenuOpen(false);
     }
   };
 
@@ -65,11 +74,22 @@ const Navbar = () => {
       <div className="container mx-auto px-3 md:px-4">
         {/* Top bar with logo and search */}
         <div className="flex items-center justify-between py-3">
-          <Link to="/" className="flex items-center">
-            <span className="text-xl md:text-2xl font-bold text-islamic-green">
-              Shams<span className="text-islamic-gold">Kitab</span>
-            </span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              className="text-islamic-green md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </Button>
+            
+            <Link to="/" className="flex items-center">
+              <span className="text-xl md:text-2xl font-bold text-islamic-green">
+                Shams<span className="text-islamic-gold">Kitab</span>
+              </span>
+            </Link>
+          </div>
           
           {/* Search bar - hidden on small mobile */}
           <form onSubmit={handleSearch} className="hidden sm:flex items-center border border-border rounded-md overflow-hidden flex-1 mx-4 md:mx-8 bg-accent/50">
@@ -84,6 +104,25 @@ const Navbar = () => {
               <Search size={18} />
             </Button>
           </form>
+          
+          {/* Mobile search form - appears when search icon is clicked */}
+          {isSearchOpen && (
+            <div className="absolute top-full left-0 right-0 p-3 bg-card border-b border-border z-50 sm:hidden">
+              <form onSubmit={handleSearch} className="flex items-center border border-border rounded-md overflow-hidden bg-accent/50">
+                <input
+                  type="text"
+                  placeholder="Search for books, authors..."
+                  className="px-3 py-2 flex-1 bg-transparent focus:outline-none text-foreground text-sm"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                />
+                <Button type="submit" variant="ghost" className="h-full px-3 text-islamic-green">
+                  <Search size={18} />
+                </Button>
+              </form>
+            </div>
+          )}
           
           {/* Icons */}
           <div className="flex items-center gap-1 md:gap-2">
@@ -104,7 +143,7 @@ const Navbar = () => {
               variant="ghost" 
               size="sm" 
               className="text-islamic-green sm:hidden"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={toggleSearch}
             >
               <Search size={18} />
             </Button>
@@ -118,14 +157,6 @@ const Navbar = () => {
             </Button>
             <Button variant="ghost" size="sm" className="text-islamic-green hidden md:flex">
               <User size={18} />
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="sm"
-              className="text-islamic-green md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </Button>
           </div>
         </div>
