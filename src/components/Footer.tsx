@@ -6,29 +6,6 @@ import { Button } from "./ui/button";
 const Footer = () => {
   return (
     <footer className="bg-card text-foreground">
-      {/* Newsletter section */}
-      <div className="bg-islamic-green/90 py-10">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-xl font-bold mb-2">Subscribe to our Newsletter</h3>
-              <p className="text-white/80">Stay updated with new arrivals and special offers</p>
-            </div>
-            
-            <div className="flex w-full md:w-auto">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="px-4 py-2 rounded-l-md border-0 flex-1 min-w-[250px] bg-white/10 text-white focus:outline-none placeholder:text-white/60"
-              />
-              <Button className="bg-islamic-gold hover:bg-islamic-gold/90 text-black rounded-l-none">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-      
       {/* Main footer content */}
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -40,7 +17,7 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-muted-foreground">
-              ShamsKitab is your trusted source for authentic Islamic books and literature, providing knowledge to Muslims around the world.
+              ShamsKitab is your trusted source for authentic books and literature, providing knowledge to readers around the world.
             </p>
             
             <div className="flex space-x-3 mt-6">
@@ -64,9 +41,10 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-5">Quick Links</h4>
             <ul className="space-y-3">
               <li><Link to="/" className="text-muted-foreground hover:text-islamic-green transition-colors">Home</Link></li>
-              <li><Link to="/books" className="text-muted-foreground hover:text-islamic-green transition-colors">New Arrivals</Link></li>
-              <li><Link to="/bestsellers" className="text-muted-foreground hover:text-islamic-green transition-colors">Bestsellers</Link></li>
-              <li><Link to="/about" className="text-muted-foreground hover:text-islamic-green transition-colors">About Us</Link></li>
+              <li><Link to="/books" className="text-muted-foreground hover:text-islamic-green transition-colors">Books</Link></li>
+              <li><Link to="/categories" className="text-muted-foreground hover:text-islamic-green transition-colors">Categories</Link></li>
+              <li><Link to="/authors" className="text-muted-foreground hover:text-islamic-green transition-colors">Authors</Link></li>
+              <li><Link to="/blog" className="text-muted-foreground hover:text-islamic-green transition-colors">Blog</Link></li>
               <li><Link to="/contact" className="text-muted-foreground hover:text-islamic-green transition-colors">Contact</Link></li>
             </ul>
           </div>
@@ -75,11 +53,12 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-5">Categories</h4>
             <ul className="space-y-3">
-              <li><Link to="/category/quran" className="text-muted-foreground hover:text-islamic-green transition-colors">Quran & Tafsir</Link></li>
-              <li><Link to="/category/hadith" className="text-muted-foreground hover:text-islamic-green transition-colors">Hadith</Link></li>
-              <li><Link to="/category/fiqh" className="text-muted-foreground hover:text-islamic-green transition-colors">Fiqh</Link></li>
-              <li><Link to="/category/history" className="text-muted-foreground hover:text-islamic-green transition-colors">Islamic History</Link></li>
-              <li><Link to="/category/children" className="text-muted-foreground hover:text-islamic-green transition-colors">Children's Books</Link></li>
+              <li><Link to="/category/education" className="text-muted-foreground hover:text-islamic-green transition-colors">Education</Link></li>
+              <li><Link to="/category/fiction" className="text-muted-foreground hover:text-islamic-green transition-colors">Fiction & Fantasy</Link></li>
+              <li><Link to="/category/romance" className="text-muted-foreground hover:text-islamic-green transition-colors">Romance</Link></li>
+              <li><Link to="/category/spirituality" className="text-muted-foreground hover:text-islamic-green transition-colors">Religion & Spirituality</Link></li>
+              <li><Link to="/category/literature" className="text-muted-foreground hover:text-islamic-green transition-colors">Literature & Fiction</Link></li>
+              <li><Link to="/category/biographies" className="text-muted-foreground hover:text-islamic-green transition-colors">Biographies & Memoirs</Link></li>
             </ul>
           </div>
           
@@ -89,7 +68,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex gap-3 text-muted-foreground">
                 <MapPin size={18} className="flex-shrink-0 mt-1" />
-                <span>123 Islamic Street, Delhi Gardens, 110001</span>
+                <span>123 Book Street, Delhi Gardens, 110001</span>
               </li>
               <li>
                 <a href="tel:+919876543210" className="flex gap-3 text-muted-foreground hover:text-islamic-green transition-colors">

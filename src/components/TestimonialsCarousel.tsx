@@ -110,8 +110,8 @@ const TestimonialsCarousel = ({ testimonials }: TestimonialsCarouselProps) => {
             </div>
           </div>
           
-          {/* Mobile navigation buttons */}
-          <div className="flex justify-center gap-3 mt-4 md:hidden">
+          {/* Mobile navigation buttons - now always visible */}
+          <div className="flex justify-center gap-3 mt-4">
             <Button
               variant="outline"
               size="icon"

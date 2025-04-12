@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, ShoppingCart, Menu, X, User, Sun, Moon } from "lucide-react";
 import { Button } from "./ui/button";
-import { Switch } from "./ui/switch";
 import { useToast } from "../hooks/use-toast";
 
 const Navbar = () => {
@@ -11,7 +10,6 @@ const Navbar = () => {
   const [cartCount] = useState(2);
   const [isDarkMode, setIsDarkMode] = useState(true); // Default is dark mode
   const [searchQuery, setSearchQuery] = useState("");
-  const { toast } = useToast();
 
   // Handle theme change
   const toggleTheme = () => {
@@ -26,22 +24,12 @@ const Navbar = () => {
 
     // Store preference
     localStorage.setItem("theme", newTheme ? "dark" : "light");
-    
-    // Show confirmation toast
-    toast({
-      title: `${newTheme ? "Dark" : "Light"} mode activated`,
-      description: `You've switched to ${newTheme ? "dark" : "light"} mode.`,
-    });
   };
 
   // Handle search submission
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      toast({
-        title: "Search initiated",
-        description: `Searching for "${searchQuery}"...`,
-      });
       // In a real app, this would navigate to search results
       setSearchQuery("");
     }
@@ -99,30 +87,24 @@ const Navbar = () => {
           
           {/* Icons */}
           <div className="flex items-center gap-1 md:gap-2">
-            <div className="flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-islamic-gold"
+              onClick={toggleTheme}
+            >
               {isDarkMode ? (
-                <Sun size={18} className="text-islamic-gold" />
+                <Sun size={18} />
               ) : (
-                <Moon size={18} className="text-islamic-green" />
+                <Moon size={18} />
               )}
-              <Switch 
-                checked={isDarkMode}
-                onCheckedChange={toggleTheme}
-                className="data-[state=checked]:bg-islamic-gold data-[state=unchecked]:bg-islamic-green"
-              />
-            </div>
+            </Button>
             
             <Button 
               variant="ghost" 
               size="sm" 
               className="text-islamic-green sm:hidden"
-              onClick={() => {
-                setIsMenuOpen(false);
-                toast({
-                  title: "Search",
-                  description: "Search functionality opened",
-                });
-              }}
+              onClick={() => setIsMenuOpen(false)}
             >
               <Search size={18} />
             </Button>

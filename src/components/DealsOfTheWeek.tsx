@@ -59,7 +59,7 @@ const DealsOfTheWeek = ({ deals }: DealsOfTheWeekProps) => {
             <Button 
               variant="outline" 
               size="icon"
-              className="h-8 w-8 rounded-full border-islamic-green text-islamic-green hover:bg-islamic-green/10"
+              className="h-8 w-8 rounded-full border-islamic-green text-islamic-green hover:bg-islamic-green/10 z-10"
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
             >
@@ -68,7 +68,7 @@ const DealsOfTheWeek = ({ deals }: DealsOfTheWeekProps) => {
             <Button 
               variant="outline" 
               size="icon"
-              className="h-8 w-8 rounded-full border-islamic-green text-islamic-green hover:bg-islamic-green/10"
+              className="h-8 w-8 rounded-full border-islamic-green text-islamic-green hover:bg-islamic-green/10 z-10"
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
             >
@@ -76,7 +76,7 @@ const DealsOfTheWeek = ({ deals }: DealsOfTheWeekProps) => {
             </Button>
           </div>
           
-          <Link to="/deals" className="flex items-center text-islamic-green text-sm hover:underline gap-1">
+          <Link to="/deals" className="flex items-center text-islamic-green text-sm hover:underline gap-1 z-10">
             <span>View All Deals</span>
             <ArrowRight size={14} />
           </Link>
