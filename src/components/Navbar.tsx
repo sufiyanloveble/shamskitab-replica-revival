@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, ShoppingCart, Menu, X, User, Sun, Moon } from "lucide-react";
 import { Button } from "./ui/button";
-import { Toggle } from "./ui/toggle";
+import { Switch } from "./ui/switch";
+import { useToast } from "../hooks/use-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount] = useState(2);
   const [isDarkMode, setIsDarkMode] = useState(true); // Default is dark mode
+  const [searchQuery, setSearchQuery] = useState("");
+  const { toast } = useToast();
 
   // Handle theme change
   const toggleTheme = () => {
@@ -23,6 +26,25 @@ const Navbar = () => {
 
     // Store preference
     localStorage.setItem("theme", newTheme ? "dark" : "light");
+    
+    // Show confirmation toast
+    toast({
+      title: `${newTheme ? "Dark" : "Light"} mode activated`,
+      description: `You've switched to ${newTheme ? "dark" : "light"} mode.`,
+    });
+  };
+
+  // Handle search submission
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      toast({
+        title: "Search initiated",
+        description: `Searching for "${searchQuery}"...`,
+      });
+      // In a real app, this would navigate to search results
+      setSearchQuery("");
+    }
   };
 
   // Check for saved theme preference
@@ -62,30 +84,46 @@ const Navbar = () => {
           </Link>
           
           {/* Search bar - hidden on small mobile */}
-          <div className="hidden sm:flex items-center border border-border rounded-md overflow-hidden flex-1 mx-4 md:mx-8 bg-accent/50">
+          <form onSubmit={handleSearch} className="hidden sm:flex items-center border border-border rounded-md overflow-hidden flex-1 mx-4 md:mx-8 bg-accent/50">
             <input
               type="text"
               placeholder="Search for books, authors..."
               className="px-3 py-1.5 flex-1 bg-transparent focus:outline-none text-foreground text-sm"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <Button variant="ghost" className="h-full px-3 text-islamic-green">
+            <Button type="submit" variant="ghost" className="h-full px-3 text-islamic-green">
               <Search size={18} />
             </Button>
-          </div>
+          </form>
           
           {/* Icons */}
           <div className="flex items-center gap-1 md:gap-2">
-            <Toggle 
-              pressed={isDarkMode}
-              onPressedChange={toggleTheme}
-              className="text-islamic-green hover:text-islamic-green/90"
-              aria-label="Toggle theme"
-              size="sm"
-            >
-              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-            </Toggle>
+            <div className="flex items-center gap-2">
+              {isDarkMode ? (
+                <Sun size={18} className="text-islamic-gold" />
+              ) : (
+                <Moon size={18} className="text-islamic-green" />
+              )}
+              <Switch 
+                checked={isDarkMode}
+                onCheckedChange={toggleTheme}
+                className="data-[state=checked]:bg-islamic-gold data-[state=unchecked]:bg-islamic-green"
+              />
+            </div>
             
-            <Button variant="ghost" size="sm" className="text-islamic-green sm:hidden">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-islamic-green sm:hidden"
+              onClick={() => {
+                setIsMenuOpen(false);
+                toast({
+                  title: "Search",
+                  description: "Search functionality opened",
+                });
+              }}
+            >
               <Search size={18} />
             </Button>
             <Button variant="ghost" size="sm" className="text-islamic-green relative">
@@ -130,6 +168,20 @@ const Navbar = () => {
         {isMenuOpen && (
           <nav className="md:hidden py-3 border-t border-border">
             <ul className="space-y-3">
+              <li>
+                <form onSubmit={handleSearch} className="flex items-center border border-border rounded-md overflow-hidden bg-accent/50 mb-3">
+                  <input
+                    type="text"
+                    placeholder="Search for books, authors..."
+                    className="px-3 py-1.5 flex-1 bg-transparent focus:outline-none text-foreground text-sm"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <Button type="submit" variant="ghost" className="h-full px-3 text-islamic-green">
+                    <Search size={18} />
+                  </Button>
+                </form>
+              </li>
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <Link 

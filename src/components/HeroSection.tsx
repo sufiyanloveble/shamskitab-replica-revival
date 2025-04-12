@@ -63,8 +63,8 @@ const HeroSection = () => {
           ))}
         </CarouselContent>
         <div className="container mx-auto px-4 relative">
-          <CarouselPrevious className="absolute left-2 md:-left-2 top-1/2" />
-          <CarouselNext className="absolute right-2 md:-right-2 top-1/2" />
+          <CarouselPrevious className="absolute left-2 md:-left-2 top-1/2 h-8 w-8 border-islamic-green bg-background/80 backdrop-blur-sm text-islamic-green hover:bg-islamic-green/20" />
+          <CarouselNext className="absolute right-2 md:-right-2 top-1/2 h-8 w-8 border-islamic-green bg-background/80 backdrop-blur-sm text-islamic-green hover:bg-islamic-green/20" />
         </div>
       </Carousel>
     </section>
