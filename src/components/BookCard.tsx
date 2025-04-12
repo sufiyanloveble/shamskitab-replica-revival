@@ -55,7 +55,7 @@ const BookCard = ({
       
       {/* New or bestseller badge */}
       {(isNew || isBestseller) && (
-        <div className={`absolute top-2 left-2 ${isNew ? 'badge badge-new' : 'badge badge-bestseller'} z-10`}>
+        <div className={`absolute top-1 left-1 ${isNew ? 'badge badge-new' : 'badge badge-bestseller'} z-10 text-[9px] px-1 py-0.5 rounded-sm`}>
           {isNew ? 'NEW' : 'BESTSELLER'}
         </div>
       )}

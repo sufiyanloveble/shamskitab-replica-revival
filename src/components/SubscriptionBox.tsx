@@ -81,7 +81,7 @@ const SubscriptionBox = () => {
                 </div>
               </div>
               
-              <div className="flex gap-4 mb-6 p-2 bg-accent rounded-md">
+              <div className="flex gap-4 mb-6 p-2 bg-accent rounded-md subscription-options">
                 <button
                   className={`flex-1 py-2 rounded-md text-sm font-medium ${
                     subscriptionType === 'one-time' 
@@ -104,15 +104,21 @@ const SubscriptionBox = () => {
                 </button>
               </div>
               
-              <Button className="w-full bg-islamic-gold hover:bg-islamic-gold/90 text-black font-medium">
-                {subscriptionType === 'one-time' ? 'Buy Now' : 'Subscribe Monthly'}
-              </Button>
-              
-              {subscriptionType === 'recurring' && (
-                <p className="text-xs text-center text-muted-foreground mt-2">
-                  Cancel anytime. Billed monthly until canceled.
-                </p>
-              )}
+              <div className="subscription-content h-[76px]">
+                <Button className="w-full bg-islamic-gold hover:bg-islamic-gold/90 text-black font-medium">
+                  {subscriptionType === 'one-time' ? 'Buy Now' : 'Subscribe Monthly'}
+                </Button>
+                
+                {subscriptionType === 'recurring' ? (
+                  <p className="text-xs text-center text-muted-foreground mt-2">
+                    Cancel anytime. Billed monthly until canceled.
+                  </p>
+                ) : (
+                  <p className="text-xs text-center text-muted-foreground mt-2">
+                    &nbsp;
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>

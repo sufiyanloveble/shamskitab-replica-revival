@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
+import { useSwipeable } from "react-swipeable";
 
 const heroSlides = [
   {
@@ -41,46 +42,56 @@ const HeroSection = () => {
     
     return () => clearInterval(interval);
   }, []);
+  
+  // Manual swipe handlers
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setActiveIndex((prevIndex) => (prevIndex + 1) % heroSlides.length),
+    onSwipedRight: () => setActiveIndex((prevIndex) => (prevIndex - 1 + heroSlides.length) % heroSlides.length),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
 
   return (
     <section className="bg-accent pattern-bg overflow-hidden">
-      <Carousel className="w-full" opts={{ loop: true }} setApi={() => {}}>
-        <CarouselContent>
-          {heroSlides.map((slide, index) => (
-            <CarouselItem key={slide.id} className={index === activeIndex ? "block" : "hidden"}>
-              <div 
-                className={`py-10 md:py-16 ${slide.bgClass} bg-cover bg-center relative`} 
-                style={{ 
-                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(${slide.bgImage})`,
-                  backgroundSize: 'cover'
-                }}
-              >
-                <div className="container mx-auto px-4">
-                  <div className="max-w-xl">
-                    <span className="text-islamic-gold font-medium mb-2 block text-sm md:text-base uppercase tracking-wide">
-                      {slide.subtitle}
-                    </span>
-                    <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 leading-tight uppercase">
-                      {slide.title}
-                    </h1>
-                    <p className="text-muted-foreground text-sm md:text-base mb-6 max-w-md">
-                      {slide.description}
-                    </p>
-                    <div className="flex flex-wrap gap-4">
-                      <Button className="bg-islamic-green hover:bg-islamic-green/90 text-white">
-                        Shop Now
-                      </Button>
-                      <Button variant="outline" className="border-islamic-green text-islamic-green hover:bg-islamic-green/10">
-                        Explore Collections
-                      </Button>
+      <div {...handlers} className="w-full">
+        <Carousel className="w-full" opts={{ loop: true }} setApi={() => {}}>
+          <CarouselContent>
+            {heroSlides.map((slide, index) => (
+              <CarouselItem key={slide.id} className={index === activeIndex ? "block" : "hidden"}>
+                <div 
+                  className={`py-10 md:py-16 ${slide.bgClass} bg-cover bg-center relative`} 
+                  style={{ 
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(${slide.bgImage})`,
+                    backgroundSize: 'cover'
+                  }}
+                >
+                  <div className="container mx-auto px-4">
+                    <div className="max-w-xl">
+                      <span className="text-white font-medium mb-2 block text-sm md:text-base uppercase tracking-wide">
+                        {slide.subtitle}
+                      </span>
+                      <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight uppercase">
+                        {slide.title}
+                      </h1>
+                      <p className="text-white/80 text-sm md:text-base mb-6 max-w-md">
+                        {slide.description}
+                      </p>
+                      <div className="flex flex-wrap gap-4">
+                        <Button className="bg-islamic-green hover:bg-islamic-green/90 text-white">
+                          Shop Now
+                        </Button>
+                        <Button variant="outline" className="border-islamic-green text-islamic-green hover:bg-islamic-green/10">
+                          Explore Collections
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </div>
     </section>
   );
 };

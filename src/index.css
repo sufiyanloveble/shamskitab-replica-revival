@@ -121,7 +121,7 @@
 }
 
 .badge {
-  @apply absolute top-1.5 right-1.5 px-1.5 py-0.5 text-[10px] font-bold rounded-md z-10;
+  @apply absolute px-1 py-0.5 text-[9px] font-medium rounded-sm z-10;
 }
 
 .badge-new {
@@ -129,7 +129,7 @@
 }
 
 .badge-sale {
-  @apply bg-red-500 text-white;
+  @apply bg-red-500 text-white absolute top-1 right-1;
 }
 
 .badge-bestseller {
@@ -161,6 +161,15 @@
   @apply bg-islamic-gold/30 text-islamic-gold text-xs px-2 py-1 rounded ml-2 uppercase;
 }
 
+/* Fix arrow visibility in sliders */
+.carousel-container {
+  @apply relative z-10;
+}
+
+.carousel-nav-button {
+  @apply z-20 !important;
+}
+
 /* Light theme specific improvements for text visibility */
 :root:not(.dark) .pattern-bg {
   background-color: rgba(242, 242, 247, 1); /* Light background */
@@ -168,12 +177,6 @@
 
 :root:not(.dark) .pattern-bg [class*="bg-cover"] {
   background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), var(--bg-url) !important;
-}
-
-:root:not(.dark) .pattern-bg h1,
-:root:not(.dark) .pattern-bg p,
-:root:not(.dark) .pattern-bg span {
-  @apply text-white; /* Ensure text is visible on dark overlays in light mode */
 }
 
 /* Improved mobile styling */
@@ -267,12 +270,25 @@
   contain-intrinsic-size: 1000px;
 }
 
-/* Fix subscription box sizing issues */
-.subscription-options button {
-  height: 38px;
-}
-
-/* Improve text contrast in light mode */
+/* Improved text contrast in light mode */
 .light .text-muted-foreground {
   color: rgba(60, 60, 80, 0.85);
+}
+
+/* Make sure the hero text is always white, even in light mode */
+.pattern-bg h1,
+.pattern-bg .text-foreground,
+.pattern-bg .text-muted-foreground,
+.pattern-bg span {
+  @apply text-white !important;
+}
+
+/* Fixed newsletter subscription spacing */
+.newsletter-container {
+  @apply py-5 !important;
+}
+
+/* Fix carousel arrow visibility */
+button[class*="carousel-nav"] {
+  @apply z-20 relative !important;
 }

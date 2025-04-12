@@ -19,26 +19,28 @@ const NewsletterSubscription = () => {
   };
   
   return (
-    <section className="py-8 bg-card">
+    <section className="py-5 bg-card newsletter-container">
       <div className="container mx-auto px-3 md:px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-islamic-green/20 mb-3">
-            <Mail size={20} className="text-islamic-green" />
+          <div className="mb-2 flex justify-center">
+            <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-islamic-green/20">
+              <Mail size={16} className="text-islamic-green" />
+            </div>
           </div>
           
-          <h2 className="text-xl md:text-2xl font-bold mb-2">
+          <h2 className="text-lg md:text-xl font-bold mb-1">
             Subscribe to our Newsletter
           </h2>
           
-          <p className="text-muted-foreground text-sm mb-4">
+          <p className="text-muted-foreground text-xs mb-3">
             Stay updated with new arrivals and special offers
           </p>
           
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
             <input
               type="email"
               placeholder="Enter your email address"
-              className="flex-1 px-4 py-2 rounded-md bg-background border border-border focus:outline-none focus:border-islamic-green"
+              className="flex-1 px-3 py-1.5 rounded-md bg-background border border-border focus:outline-none focus:border-islamic-green text-sm"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -46,7 +48,7 @@ const NewsletterSubscription = () => {
             
             <Button
               type="submit"
-              className="bg-islamic-green hover:bg-islamic-green/90 text-white"
+              className="bg-islamic-green hover:bg-islamic-green/90 text-white py-1.5 h-auto text-sm"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Subscribing..." : "Subscribe"}
