@@ -1,7 +1,13 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
-import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext
+} from "./ui/carousel";
 import { useSwipeable } from "react-swipeable";
 
 const heroSlides = [
@@ -48,7 +54,7 @@ const HeroSection = ({ theme }: HeroSectionProps) => {
     return () => clearInterval(interval);
   }, []);
   
-  // Manual swipe handlers with fixed config
+  // Manual swipe handlers
   const handlers = useSwipeable({
     onSwipedLeft: () => setActiveIndex((prevIndex) => (prevIndex + 1) % heroSlides.length),
     onSwipedRight: () => setActiveIndex((prevIndex) => (prevIndex - 1 + heroSlides.length) % heroSlides.length),
@@ -72,30 +78,52 @@ const HeroSection = ({ theme }: HeroSectionProps) => {
         <Carousel className="w-full" opts={{ loop: true }}>
           <CarouselContent>
             {heroSlides.map((slide, index) => (
-              <CarouselItem key={slide.id} className={index === activeIndex ? "block" : "hidden"}>
+              <CarouselItem 
+                key={slide.id} 
+                className={`transition-opacity duration-500 ${
+                  index === activeIndex ? "opacity-100" : "opacity-0"
+                }`}
+              >
                 <div 
-                  className={`py-10 md:py-16 bg-cover bg-center relative min-h-[400px] flex items-center`} 
+                  className={`py-10 md:py-16 bg-cover bg-center relative min-h-[400px] flex items-center transition-all duration-300`} 
                   style={{ 
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(${slide.bgImage})`,
+                    backgroundImage: `linear-gradient(${
+                      isLightTheme 
+                        ? 'rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9))'
+                        : 'rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8))'
+                    }, url(${slide.bgImage})`,
                     backgroundSize: 'cover'
                   }}
                 >
                   <div className="container mx-auto px-4">
                     <div className="max-w-xl relative z-10">
-                      <span className={`font-medium mb-2 block text-sm md:text-base uppercase tracking-wide ${isLightTheme ? 'text-black' : 'text-white/90'}`}>
+                      <span className={`font-medium mb-2 block text-sm md:text-base uppercase tracking-wide ${
+                        isLightTheme ? 'text-gray-800' : 'text-white/90'
+                      }`}>
                         {slide.subtitle}
                       </span>
-                      <h1 className={`text-2xl md:text-4xl lg:text-5xl font-bold mb-3 leading-tight ${isLightTheme ? 'text-black' : 'text-white'}`}>
+                      <h1 className={`text-2xl md:text-4xl lg:text-5xl font-bold mb-3 leading-tight ${
+                        isLightTheme ? 'text-gray-900' : 'text-white'
+                      }`}>
                         {slide.title}
                       </h1>
-                      <p className={`text-sm md:text-base mb-6 max-w-md ${isLightTheme ? 'text-black/80' : 'text-white/80'}`}>
+                      <p className={`text-sm md:text-base mb-6 max-w-md ${
+                        isLightTheme ? 'text-gray-700' : 'text-white/80'
+                      }`}>
                         {slide.description}
                       </p>
                       <div className="flex flex-wrap gap-4">
                         <Button className="bg-islamic-green hover:bg-islamic-green/90 text-white">
                           Shop Now
                         </Button>
-                        <Button variant="outline" className="border-islamic-green text-islamic-green hover:bg-islamic-green/10">
+                        <Button 
+                          variant="outline" 
+                          className={`border-islamic-green ${
+                            isLightTheme 
+                              ? 'text-islamic-green hover:bg-islamic-green/10' 
+                              : 'text-white hover:bg-white/10'
+                          }`}
+                        >
                           Explore Collections
                         </Button>
                       </div>
@@ -105,6 +133,8 @@ const HeroSection = ({ theme }: HeroSectionProps) => {
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious className="hidden md:flex left-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm" />
+          <CarouselNext className="hidden md:flex right-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm" />
         </Carousel>
       </div>
     </section>

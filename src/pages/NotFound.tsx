@@ -1,13 +1,17 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const NotFound = () => {
+  const theme = localStorage.getItem("theme") as "light" | "dark" || "dark";
+  const toggleTheme = () => {
+    console.log("Theme toggle in NotFound is disabled");
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-16 text-center">
