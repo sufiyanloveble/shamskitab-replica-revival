@@ -45,7 +45,7 @@ const HeroSection = ({ theme }: HeroSectionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const isLightTheme = theme === "light";
 
-  // Auto-slide functionality
+  // Auto-slide functionality with increased interval to 5 seconds (already set)
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % heroSlides.length);
@@ -80,7 +80,7 @@ const HeroSection = ({ theme }: HeroSectionProps) => {
             {heroSlides.map((slide, index) => (
               <CarouselItem 
                 key={slide.id} 
-                className={`transition-opacity duration-500 ${
+                className={`transition-all duration-500 ${
                   index === activeIndex ? "opacity-100" : "opacity-0"
                 }`}
               >
@@ -89,8 +89,8 @@ const HeroSection = ({ theme }: HeroSectionProps) => {
                   style={{ 
                     backgroundImage: `linear-gradient(${
                       isLightTheme 
-                        ? 'rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9))'
-                        : 'rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8))'
+                        ? 'rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8))'
+                        : 'rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7))'
                     }, url(${slide.bgImage})`,
                     backgroundSize: 'cover'
                   }}
@@ -112,13 +112,13 @@ const HeroSection = ({ theme }: HeroSectionProps) => {
                       }`}>
                         {slide.description}
                       </p>
-                      <div className="flex flex-wrap gap-4">
-                        <Button className="bg-islamic-green hover:bg-islamic-green/90 text-white">
+                      <div className="flex flex-wrap gap-3 md:gap-4">
+                        <Button className="bg-islamic-green hover:bg-islamic-green/90 text-white text-sm md:text-base py-2 px-4">
                           Shop Now
                         </Button>
                         <Button 
                           variant="outline" 
-                          className={`border-islamic-green ${
+                          className={`border-islamic-green text-sm md:text-base py-2 px-4 ${
                             isLightTheme 
                               ? 'text-islamic-green hover:bg-islamic-green/10' 
                               : 'text-white hover:bg-white/10'
@@ -133,8 +133,8 @@ const HeroSection = ({ theme }: HeroSectionProps) => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex left-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm" />
-          <CarouselNext className="hidden md:flex right-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm" />
+          <CarouselPrevious className="hidden md:flex left-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white" />
+          <CarouselNext className="hidden md:flex right-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white" />
         </Carousel>
       </div>
     </section>
