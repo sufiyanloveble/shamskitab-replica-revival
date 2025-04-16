@@ -38,39 +38,41 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % heroSlides.length);
-    }, 5000); // Change slide every 5 seconds
+    }, 5000);
     
     return () => clearInterval(interval);
   }, []);
   
-  // Manual swipe handlers
+  // Manual swipe handlers with fixed config
   const handlers = useSwipeable({
     onSwipedLeft: () => setActiveIndex((prevIndex) => (prevIndex + 1) % heroSlides.length),
     onSwipedRight: () => setActiveIndex((prevIndex) => (prevIndex - 1 + heroSlides.length) % heroSlides.length),
-    preventDefaultTouchmoveEvent: true,
-    trackMouse: true
+    trackMouse: true,
+    delta: 10,
+    swipeDuration: 500,
+    touchEventOptions: { passive: true }
   });
 
   return (
     <section className="bg-accent pattern-bg overflow-hidden">
       <div {...handlers} className="w-full">
-        <Carousel className="w-full" opts={{ loop: true }} setApi={() => {}}>
+        <Carousel className="w-full" opts={{ loop: true }}>
           <CarouselContent>
             {heroSlides.map((slide, index) => (
               <CarouselItem key={slide.id} className={index === activeIndex ? "block" : "hidden"}>
                 <div 
-                  className={`py-10 md:py-16 ${slide.bgClass} bg-cover bg-center relative`} 
+                  className={`py-10 md:py-16 bg-cover bg-center relative min-h-[400px] flex items-center`} 
                   style={{ 
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(${slide.bgImage})`,
                     backgroundSize: 'cover'
                   }}
                 >
                   <div className="container mx-auto px-4">
-                    <div className="max-w-xl">
-                      <span className="text-white font-medium mb-2 block text-sm md:text-base uppercase tracking-wide">
+                    <div className="max-w-xl relative z-10">
+                      <span className="text-white/90 font-medium mb-2 block text-sm md:text-base uppercase tracking-wide">
                         {slide.subtitle}
                       </span>
-                      <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight uppercase">
+                      <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
                         {slide.title}
                       </h1>
                       <p className="text-white/80 text-sm md:text-base mb-6 max-w-md">

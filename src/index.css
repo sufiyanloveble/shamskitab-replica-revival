@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap');
 
 @tailwind base;
@@ -277,10 +276,9 @@
 
 /* Make sure the hero text is always white, even in light mode */
 .pattern-bg h1,
-.pattern-bg .text-foreground,
-.pattern-bg .text-muted-foreground,
+.pattern-bg p,
 .pattern-bg span {
-  @apply text-white !important;
+  @apply text-white dark:text-white !important;
 }
 
 /* Fixed newsletter subscription spacing */

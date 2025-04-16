@@ -1,6 +1,5 @@
 
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 
 interface Category {
   id: string;
@@ -18,8 +17,20 @@ const CategorySection = ({ categories }: CategorySectionProps) => {
   return (
     <section className="py-8 bg-card border-y border-border/50">
       <div className="container mx-auto px-3 md:px-4">
-        <div className="section-heading">
+        <div className="section-heading mb-6">
           <h2>Book Categories</h2>
+        </div>
+        
+        <div className="flex flex-wrap gap-2 mb-6 justify-center">
+          {["Business", "Health & Beauty", "History", "Tech"].map((tag) => (
+            <Link
+              key={tag}
+              to={`/category/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-accent/50 text-foreground hover:bg-accent transition-colors"
+            >
+              {tag}
+            </Link>
+          ))}
         </div>
         
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">

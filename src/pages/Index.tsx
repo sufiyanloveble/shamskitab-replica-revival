@@ -1,4 +1,4 @@
-
+import { FC } from "react";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import BookCarousel from "../components/BookCarousel";
@@ -26,7 +26,7 @@ interface IndexProps {
   toggleTheme: () => void;
 }
 
-const Index = ({ theme, toggleTheme }: IndexProps) => {
+const Index: FC<IndexProps> = ({ theme, toggleTheme }) => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
