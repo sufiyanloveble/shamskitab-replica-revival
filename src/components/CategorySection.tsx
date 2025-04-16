@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 interface Category {
   id: string;
