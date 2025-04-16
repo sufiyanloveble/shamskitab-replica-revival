@@ -4,26 +4,22 @@ import { Link } from "react-router-dom";
 import { Search, ShoppingCart, Menu, X, User, Sun, Moon } from "lucide-react";
 import { Button } from "./ui/button";
 
-const Navbar = () => {
+interface NavbarProps {
+  theme: "light" | "dark";
+  toggleTheme: () => void;
+}
+
+const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount] = useState(2);
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default is dark mode
+  const [isDarkMode, setIsDarkMode] = useState(theme === "dark");
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // Handle theme change
-  const toggleTheme = () => {
-    const newTheme = !isDarkMode;
-    setIsDarkMode(newTheme);
-    
-    if (newTheme) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-
-    // Store preference
-    localStorage.setItem("theme", newTheme ? "dark" : "light");
+  const handleToggleTheme = () => {
+    toggleTheme();
+    setIsDarkMode(!isDarkMode);
   };
 
   // Handle search submission
@@ -44,21 +40,10 @@ const Navbar = () => {
     }
   };
 
-  // Check for saved theme preference
+  // Update internal state when theme prop changes
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    
-    if (savedTheme) {
-      const prefersDark = savedTheme === "dark";
-      setIsDarkMode(prefersDark);
-      
-      if (prefersDark) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, []);
+    setIsDarkMode(theme === "dark");
+  }, [theme]);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -70,7 +55,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="bg-card border-b border-border sticky top-0 z-50">
+    <header className="bg-card border-b border-border sticky top-0 z-50 transition-colors duration-300">
       <div className="container mx-auto px-3 md:px-4">
         {/* Top bar with logo and search */}
         <div className="flex items-center justify-between py-3">
@@ -78,7 +63,7 @@ const Navbar = () => {
             <Button 
               variant="ghost" 
               size="sm"
-              className="text-islamic-green md:hidden"
+              className="text-islamic-green"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -130,12 +115,12 @@ const Navbar = () => {
               variant="ghost" 
               size="sm" 
               className="text-islamic-gold"
-              onClick={toggleTheme}
+              onClick={handleToggleTheme}
             >
               {isDarkMode ? (
-                <Sun size={18} />
+                <Sun size={18} className="text-islamic-gold" />
               ) : (
-                <Moon size={18} />
+                <Moon size={18} className="text-islamic-gold" />
               )}
             </Button>
             

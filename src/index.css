@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap');
 
 @tailwind base;
@@ -77,6 +78,7 @@
     @apply bg-background text-foreground font-sans;
     scroll-behavior: smooth;
     overscroll-behavior-y: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -86,6 +88,23 @@
   img {
     @apply object-cover;
     content-visibility: auto;
+  }
+  
+  /* Add smooth transitions for theme changes */
+  .btn,
+  button,
+  a,
+  .nav-link,
+  input,
+  section,
+  footer,
+  header,
+  main,
+  article,
+  div {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
   }
 }
 
@@ -199,6 +218,15 @@
   h2 {
     @apply text-xl;
   }
+  
+  /* More compact footer on mobile */
+  footer .container {
+    @apply py-4;
+  }
+  
+  footer h4 {
+    @apply mb-2 text-sm;
+  }
 }
 
 /* Animation utilities with reduced motion preference support */
@@ -274,13 +302,6 @@
   color: rgba(60, 60, 80, 0.85);
 }
 
-/* Make sure the hero text is always white, even in light mode */
-.pattern-bg h1,
-.pattern-bg p,
-.pattern-bg span {
-  @apply text-white dark:text-white !important;
-}
-
 /* Fixed newsletter subscription spacing */
 .newsletter-container {
   @apply py-5 !important;
@@ -289,4 +310,20 @@
 /* Fix carousel arrow visibility */
 button[class*="carousel-nav"] {
   @apply z-20 relative !important;
+}
+
+/* Image optimizations */
+img {
+  @apply object-cover;
+  content-visibility: auto;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improved theme transitions */
+html.transitioning * {
+  transition: none !important;
 }

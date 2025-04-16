@@ -31,8 +31,13 @@ const heroSlides = [
   }
 ];
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  theme?: "light" | "dark";
+}
+
+const HeroSection = ({ theme }: HeroSectionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const isLightTheme = theme === "light";
 
   // Auto-slide functionality
   useEffect(() => {
@@ -53,6 +58,14 @@ const HeroSection = () => {
     touchEventOptions: { passive: true }
   });
 
+  // Preload hero images
+  useEffect(() => {
+    heroSlides.forEach(slide => {
+      const img = new Image();
+      img.src = slide.bgImage;
+    });
+  }, []);
+
   return (
     <section className="bg-accent pattern-bg overflow-hidden">
       <div {...handlers} className="w-full">
@@ -69,13 +82,13 @@ const HeroSection = () => {
                 >
                   <div className="container mx-auto px-4">
                     <div className="max-w-xl relative z-10">
-                      <span className="text-white/90 font-medium mb-2 block text-sm md:text-base uppercase tracking-wide">
+                      <span className={`font-medium mb-2 block text-sm md:text-base uppercase tracking-wide ${isLightTheme ? 'text-black' : 'text-white/90'}`}>
                         {slide.subtitle}
                       </span>
-                      <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
+                      <h1 className={`text-2xl md:text-4xl lg:text-5xl font-bold mb-3 leading-tight ${isLightTheme ? 'text-black' : 'text-white'}`}>
                         {slide.title}
                       </h1>
-                      <p className="text-white/80 text-sm md:text-base mb-6 max-w-md">
+                      <p className={`text-sm md:text-base mb-6 max-w-md ${isLightTheme ? 'text-black/80' : 'text-white/80'}`}>
                         {slide.description}
                       </p>
                       <div className="flex flex-wrap gap-4">

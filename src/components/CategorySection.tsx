@@ -16,7 +16,7 @@ interface CategorySectionProps {
 
 const CategorySection = ({ categories }: CategorySectionProps) => {
   return (
-    <section className="py-8 bg-card border-y border-border/50">
+    <section className="py-8 bg-card border-y border-border/50 transition-colors duration-300">
       <div className="container mx-auto px-3 md:px-4">
         <div className="section-heading mb-6">
           <h2>Book Categories</h2>
@@ -27,7 +27,7 @@ const CategorySection = ({ categories }: CategorySectionProps) => {
             <Link
               key={tag}
               to={`/category/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-accent/50 text-foreground hover:bg-accent transition-colors"
+              className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-accent/50 text-foreground hover:bg-accent transition-colors"
             >
               {tag}
             </Link>
@@ -46,6 +46,7 @@ const CategorySection = ({ categories }: CategorySectionProps) => {
                   src={category.image}
                   alt={category.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="eager"
                 />
               </div>
               

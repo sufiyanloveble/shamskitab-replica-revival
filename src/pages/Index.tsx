@@ -29,11 +29,11 @@ interface IndexProps {
 
 const Index: FC<IndexProps> = ({ theme, toggleTheme }) => {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       
       <main className="flex-grow">
-        <HeroSection />
+        <HeroSection theme={theme} />
         
         <DealsOfTheWeek deals={dealsOfTheWeek} />
         
