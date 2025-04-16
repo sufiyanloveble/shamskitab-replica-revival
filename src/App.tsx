@@ -1,4 +1,3 @@
-
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -27,14 +26,23 @@ const App = () => {
   // Preload essential images
   useEffect(() => {
     const imagesToPreload = [
-      "https://images.unsplash.com/photo-1521123845560-14093637aa7d?q=80&w=1470&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1470&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=1470&auto=format&fit=crop"
+      // Featured books images
+      ...featuredBooks.map(book => book.coverImage),
+      // New arrivals images
+      ...newArrivals.map(book => book.coverImage),
+      // Premium collections images
+      ...premiumCollections.map(collection => collection.image),
+      // Category images
+      ...categories.map(category => category.image),
+      // Blog post images
+      ...blogPosts.map(post => post.image)
     ];
     
     imagesToPreload.forEach(src => {
-      const img = new Image();
-      img.src = src;
+      if (src) {
+        const img = new Image();
+        img.src = src;
+      }
     });
   }, []);
 

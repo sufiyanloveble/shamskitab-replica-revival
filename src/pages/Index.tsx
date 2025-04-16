@@ -1,7 +1,6 @@
 
 import { FC } from "react";
 import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
 import BookCarousel from "../components/BookCarousel";
 import CategorySection from "../components/CategorySection";
 import DealsOfTheWeek from "../components/DealsOfTheWeek";
@@ -33,10 +32,7 @@ const Index: FC<IndexProps> = ({ theme, toggleTheme }) => {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       
       <main className="flex-grow">
-        <HeroSection theme={theme} />
-        
         <DealsOfTheWeek deals={dealsOfTheWeek} />
-        
         <CategorySection categories={categories} />
         
         <BookCarousel 
@@ -48,11 +44,8 @@ const Index: FC<IndexProps> = ({ theme, toggleTheme }) => {
         />
         
         <PremiumCollections collections={premiumCollections} />
-        
         <SubscriptionBox />
-        
         <CustomerPerks />
-        
         <TestimonialsCarousel testimonials={testimonials} />
         
         <BookCarousel 
@@ -64,7 +57,6 @@ const Index: FC<IndexProps> = ({ theme, toggleTheme }) => {
         />
         
         <BlogSection posts={blogPosts} />
-        
         <NewsletterSubscription />
       </main>
       
