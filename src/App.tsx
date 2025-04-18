@@ -2,7 +2,7 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import BookDetails from "./pages/BookDetails";
@@ -18,6 +18,12 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
+
+  // Set dark mode as default and apply it immediately on mount
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  }, []);
 
   // Preload essential images
   const imagesToPreload = [
@@ -60,7 +66,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index theme={theme} toggleTheme={toggleTheme} />} />
-            <Route path="/book/:id" element={<BookDetails />} />
+            <Route path="/book/:id" element={<BookDetails theme={theme} toggleTheme={toggleTheme} />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
