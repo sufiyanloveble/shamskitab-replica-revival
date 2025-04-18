@@ -1,4 +1,3 @@
-
 import { FC, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,12 +17,10 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
   const { id } = useParams();
   const { toast } = useToast();
   
-  // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
   
-  // Combine both arrays to search for the book
   const allBooks = [...featuredBooks, ...newArrivals];
   const book = allBooks.find(b => b.id === id);
   
@@ -65,7 +62,6 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
       
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-8">
-          {/* Breadcrumb */}
           <div className="mb-6">
             <Link to="/" className="text-sm text-muted-foreground hover:text-islamic-green transition-colors flex items-center gap-2">
               <ArrowLeft size={14} />
@@ -74,7 +70,6 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Book Cover */}
             <div className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg">
               <img
                 src={book.coverImage}
@@ -82,7 +77,6 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 className="w-full h-full object-cover"
                 loading="eager"
                 onError={(e) => {
-                  // Fallback image if the book image fails to load
                   e.currentTarget.src = "/placeholder.svg";
                 }}
               />
@@ -94,13 +88,11 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
               )}
             </div>
 
-            {/* Book Details */}
             <div className="space-y-6">
               <div>
                 <h1 className="text-3xl font-bold text-foreground mb-2">{book.title}</h1>
                 <p className="text-xl text-muted-foreground">By {book.author}</p>
                 
-                {/* Rating */}
                 <div className="flex items-center gap-1 mt-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
@@ -129,13 +121,11 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 )}
               </div>
 
-              {/* Availability Status */}
               <div className="flex items-center">
                 <span className="inline-block w-3 h-3 rounded-full bg-islamic-green mr-2"></span>
                 <span className="text-sm text-foreground">In Stock</span>
               </div>
 
-              {/* Short description */}
               <p className="text-muted-foreground">
                 {book.description?.substring(0, 150) || "A captivating read that will keep you engaged from start to finish."}
                 {book.description?.length > 150 && "..."}
@@ -150,27 +140,28 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 </CardContent>
               </Card>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="flex-1 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
-                  onClick={handleAddToCart}
-                >
-                  <ShoppingCart className="mr-2" size={20} />
-                  Add to Cart
-                </Button>
-                <Button
-                  size="lg"
-                  className="flex-1 bg-islamic-green hover:bg-islamic-green/90 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg"
-                  onClick={handleBuyNow}
-                >
-                  <CreditCard className="mr-2" size={20} />
-                  Buy Now
-                </Button>
+              <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-lg border-t border-border md:relative md:p-0 md:bg-transparent md:border-0 md:backdrop-blur-none">
+                <div className="flex flex-col sm:flex-row gap-4 container mx-auto max-w-2xl">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="flex-1 h-14 sm:h-12 text-base sm:text-sm border-2 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+                    onClick={handleAddToCart}
+                  >
+                    <ShoppingCart className="mr-2" size={20} />
+                    Add to Cart
+                  </Button>
+                  <Button
+                    size="lg"
+                    className="flex-1 h-14 sm:h-12 text-base sm:text-sm bg-islamic-green hover:bg-islamic-green/90 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg"
+                    onClick={handleBuyNow}
+                  >
+                    <CreditCard className="mr-2" size={20} />
+                    Buy Now
+                  </Button>
+                </div>
               </div>
               
-              {/* Delivery info */}
               <div className="pt-4 border-t border-border">
                 <p className="text-sm text-muted-foreground">
                   Usually ships within 2-3 business days
