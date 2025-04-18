@@ -1,3 +1,4 @@
+
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -13,11 +14,13 @@ import {
   blogPosts 
 } from "./data/books";
 
-// Initialize dark mode before React hydrates to prevent flash
+// Always initialize with dark mode unless explicitly set to light by user
 if (localStorage.theme === 'light') {
   document.documentElement.classList.remove('dark');
 } else {
+  // Set dark mode as default
   document.documentElement.classList.add('dark');
+  localStorage.setItem('theme', 'dark');
 }
 
 const queryClient = new QueryClient();
@@ -25,7 +28,7 @@ const queryClient = new QueryClient();
 const App = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
-  // Set dark mode as default on initial load only
+  // Set theme on initial load
   useEffect(() => {
     // Get theme from localStorage or use dark as default
     const savedTheme = localStorage.getItem("theme") || "dark";

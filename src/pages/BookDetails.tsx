@@ -1,3 +1,4 @@
+
 import { FC, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,6 +18,7 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
   const { id } = useParams();
   const { toast } = useToast();
   
+  // Scroll to top when page loads or ID changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
@@ -60,7 +62,7 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
     <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       
-      <main className="flex-grow">
+      <main className="flex-grow pb-20 md:pb-0"> {/* Added bottom padding on mobile to prevent footer overlap */}
         <div className="container mx-auto px-4 py-8">
           <div className="mb-6">
             <Link to="/" className="text-sm text-muted-foreground hover:text-islamic-green transition-colors flex items-center gap-2">
@@ -140,8 +142,9 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 </CardContent>
               </Card>
 
-              <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-lg border-t border-border md:relative md:p-0 md:bg-transparent md:border-0 md:backdrop-blur-none">
-                <div className="flex flex-col sm:flex-row gap-4 container mx-auto max-w-2xl">
+              {/* Purchase buttons - properly positioned for mobile and desktop */}
+              <div className="mt-8 py-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     size="lg"
                     variant="outline"
@@ -154,6 +157,29 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                   <Button
                     size="lg"
                     className="flex-1 h-14 sm:h-12 text-base sm:text-sm bg-islamic-green hover:bg-islamic-green/90 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg"
+                    onClick={handleBuyNow}
+                  >
+                    <CreditCard className="mr-2" size={20} />
+                    Buy Now
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Mobile fixed buttons - visible only on small screens */}
+              <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/90 backdrop-blur-md border-t border-border sm:hidden">
+                <div className="flex gap-3 container mx-auto">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="flex-1 h-14 text-base border-2 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-colors"
+                    onClick={handleAddToCart}
+                  >
+                    <ShoppingCart className="mr-2" size={20} />
+                    Add to Cart
+                  </Button>
+                  <Button
+                    size="lg"
+                    className="flex-1 h-14 text-base bg-islamic-green hover:bg-islamic-green/90 transition-colors shadow-md"
                     onClick={handleBuyNow}
                   >
                     <CreditCard className="mr-2" size={20} />

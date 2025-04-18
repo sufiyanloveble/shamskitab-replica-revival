@@ -19,16 +19,30 @@
     <meta name="twitter:site" content="@shamskitab" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     
-    <!-- Prevent FOUC -->
+    <!-- Prevent flash by forcing dark mode -->
     <script>
-      try {
-        if (localStorage.theme === 'light') {
-          document.documentElement.classList.remove('dark');
-        } else {
+      // Force dark mode unless explicitly set to light
+      (function() {
+        try {
+          if (localStorage.theme === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+          }
+        } catch (e) {
+          // If localStorage is unavailable, default to dark
           document.documentElement.classList.add('dark');
         }
-      } catch (e) {}
+      })();
     </script>
+    <!-- Prevent FOUC -->
+    <style>
+      html.dark {
+        background-color: #1c1917;
+        color: #f8f9fa;
+      }
+    </style>
   </head>
 
   <body>
