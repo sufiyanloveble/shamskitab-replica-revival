@@ -19,34 +19,46 @@ const queryClient = new QueryClient();
 const App = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
-  // Set dark mode as default and apply it immediately on mount
+  // Set dark mode as default on initial load only
   useEffect(() => {
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("theme", "dark");
+    // Get theme from localStorage or use dark as default
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    
+    // Apply the theme
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    
+    // Update state
+    setTheme(savedTheme as "light" | "dark");
   }, []);
 
   // Preload essential images
-  const imagesToPreload = [
-    // Featured books images
-    ...featuredBooks.map(book => book.coverImage),
-    // New arrivals images
-    ...newArrivals.map(book => book.coverImage),
-    // Premium collections images
-    ...premiumCollections.map(collection => collection.image),
-    // Category images
-    ...categories.map(category => category.image),
-    // Blog post images
-    ...blogPosts.map(post => post.image)
-  ];
-  
-  imagesToPreload.forEach(src => {
-    if (src) {
-      const img = new Image();
-      img.src = src;
-    }
-  });
+  useEffect(() => {
+    const imagesToPreload = [
+      // Featured books images
+      ...featuredBooks.map(book => book.coverImage),
+      // New arrivals images
+      ...newArrivals.map(book => book.coverImage),
+      // Premium collections images
+      ...premiumCollections.map(collection => collection.image),
+      // Category images
+      ...categories.map(category => category.image),
+      // Blog post images
+      ...blogPosts.map(post => post.image)
+    ];
+    
+    imagesToPreload.forEach(src => {
+      if (src) {
+        const img = new Image();
+        img.src = src;
+      }
+    });
+  }, []);
 
-  // Simple theme toggle without transitions
+  // Theme toggle function
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);

@@ -1,5 +1,5 @@
 
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,11 @@ interface BookDetailsProps {
 const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
   const { id } = useParams();
   const { toast } = useToast();
+  
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
   
   // Combine both arrays to search for the book
   const allBooks = [...featuredBooks, ...newArrivals];
@@ -76,6 +81,10 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 alt={book.title}
                 className="w-full h-full object-cover"
                 loading="eager"
+                onError={(e) => {
+                  // Fallback image if the book image fails to load
+                  e.currentTarget.src = "/placeholder.svg";
+                }}
               />
               {book.isNew && (
                 <span className="badge badge-new absolute top-2 left-2 px-2 py-1">New</span>
@@ -120,6 +129,12 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 )}
               </div>
 
+              {/* Availability Status */}
+              <div className="flex items-center">
+                <span className="inline-block w-3 h-3 rounded-full bg-islamic-green mr-2"></span>
+                <span className="text-sm text-foreground">In Stock</span>
+              </div>
+
               {/* Short description */}
               <p className="text-muted-foreground">
                 {book.description?.substring(0, 150) || "A captivating read that will keep you engaged from start to finish."}
@@ -139,7 +154,7 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="flex-1 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white"
+                  className="flex-1 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
                   onClick={handleAddToCart}
                 >
                   <ShoppingCart className="mr-2" size={20} />
@@ -147,7 +162,7 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 </Button>
                 <Button
                   size="lg"
-                  className="flex-1 bg-islamic-green hover:bg-islamic-green/90"
+                  className="flex-1 bg-islamic-green hover:bg-islamic-green/90 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg"
                   onClick={handleBuyNow}
                 >
                   <CreditCard className="mr-2" size={20} />

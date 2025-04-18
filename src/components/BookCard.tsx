@@ -26,20 +26,24 @@ const BookCard: React.FC<BookProps> = ({
   isNew 
 }) => {
   return (
-    <Link to={`/book/${id}`}>
+    <Link to={`/book/${id}`} className="block">
       <Card className="book-card group relative overflow-hidden transition-all duration-300 hover:shadow-lg">
         <div className="relative aspect-[3/4] overflow-hidden">
           {isNew && (
-            <span className="badge badge-new absolute top-1 left-1">New</span>
+            <span className="badge badge-new absolute top-1 left-1 z-10">New</span>
           )}
           {isBestseller && (
-            <span className="badge badge-bestseller absolute top-1 left-1">Bestseller</span>
+            <span className="badge badge-bestseller absolute top-1 left-1 z-10">Bestseller</span>
           )}
           <img
             src={coverImage}
             alt={title}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="eager"
+            onError={(e) => {
+              // Fallback image if the book image fails to load
+              e.currentTarget.src = "/placeholder.svg";
+            }}
           />
         </div>
         <div className="p-3">
