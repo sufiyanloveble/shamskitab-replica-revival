@@ -1,4 +1,3 @@
-
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -159,7 +158,7 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
               </div>
 
               {/* Desktop Buttons */}
-              <div className="hidden md:block mt-8">
+              <div className="mt-8">
                 <div className="flex gap-4">
                   <Button
                     size="lg"
@@ -184,29 +183,6 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
           </div>
         </div>
       </main>
-      
-      {/* Mobile Buttons - Fixed Position */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-md border-t border-border">
-        <div className="container mx-auto flex gap-3">
-          <Button
-            size="lg"
-            variant="outline"
-            className="flex-1 h-14 text-base border-2 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-colors"
-            onClick={handleAddToCart}
-          >
-            <ShoppingCart className="mr-2" size={20} />
-            Add to Cart
-          </Button>
-          <Button
-            size="lg"
-            className="flex-1 h-14 text-base bg-islamic-green hover:bg-islamic-green/90 transition-colors shadow-md"
-            onClick={handleBuyNow}
-          >
-            <CreditCard className="mr-2" size={20} />
-            Buy Now
-          </Button>
-        </div>
-      </div>
       
       <Footer />
     </div>
