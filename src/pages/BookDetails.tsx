@@ -1,9 +1,8 @@
-
 import { FC, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, CreditCard, ArrowLeft, Star } from "lucide-react";
+import { ShoppingCart, CreditCard } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { featuredBooks, newArrivals } from "@/data/books";
 import Navbar from "../components/Navbar";
@@ -18,7 +17,6 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
   const { id } = useParams();
   const { toast } = useToast();
   
-  // Scroll to top when page loads or ID changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
@@ -32,10 +30,6 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
         <Navbar theme={theme} toggleTheme={toggleTheme} />
         <div className="container mx-auto px-4 py-8 flex-grow">
           <h1 className="text-2xl font-bold text-foreground">Book not found</h1>
-          <Link to="/" className="text-islamic-green hover:underline flex items-center gap-2 mt-4">
-            <ArrowLeft size={16} />
-            Back to Home
-          </Link>
         </div>
         <Footer />
       </div>
@@ -62,15 +56,8 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
     <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       
-      <main className="flex-grow pb-20 md:pb-0"> {/* Added bottom padding on mobile to prevent footer overlap */}
-        <div className="container mx-auto px-4 py-8">
-          <div className="mb-6">
-            <Link to="/" className="text-sm text-muted-foreground hover:text-islamic-green transition-colors flex items-center gap-2">
-              <ArrowLeft size={14} />
-              Back to Browse
-            </Link>
-          </div>
-
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 py-8 pb-32 sm:pb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg">
               <img
@@ -142,13 +129,12 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 </CardContent>
               </Card>
 
-              {/* Purchase buttons - properly positioned for mobile and desktop */}
-              <div className="mt-8 py-4">
-                <div className="flex flex-col sm:flex-row gap-4">
+              <div className="hidden sm:block mt-8">
+                <div className="flex gap-4">
                   <Button
                     size="lg"
                     variant="outline"
-                    className="flex-1 h-14 sm:h-12 text-base sm:text-sm border-2 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+                    className="flex-1 h-12 text-base border-2 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-all duration-200"
                     onClick={handleAddToCart}
                   >
                     <ShoppingCart className="mr-2" size={20} />
@@ -156,7 +142,7 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                   </Button>
                   <Button
                     size="lg"
-                    className="flex-1 h-14 sm:h-12 text-base sm:text-sm bg-islamic-green hover:bg-islamic-green/90 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg"
+                    className="flex-1 h-12 text-base bg-islamic-green hover:bg-islamic-green/90 transition-all duration-200"
                     onClick={handleBuyNow}
                   >
                     <CreditCard className="mr-2" size={20} />
@@ -165,9 +151,8 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 </div>
               </div>
               
-              {/* Mobile fixed buttons - visible only on small screens */}
-              <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/90 backdrop-blur-md border-t border-border sm:hidden">
-                <div className="flex gap-3 container mx-auto">
+              <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-md border-t border-border sm:hidden shadow-lg">
+                <div className="container mx-auto flex gap-3">
                   <Button
                     size="lg"
                     variant="outline"
