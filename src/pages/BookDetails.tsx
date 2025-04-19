@@ -1,7 +1,6 @@
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { ShoppingCart, CreditCard, Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { featuredBooks, newArrivals } from "@/data/books";
@@ -35,20 +34,6 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
       </div>
     );
   }
-  
-  const handleAddToCart = () => {
-    toast({
-      title: "Added to cart",
-      description: `${book.title} has been added to your cart`
-    });
-  };
-  
-  const handleBuyNow = () => {
-    toast({
-      title: "Proceeding to checkout",
-      description: "Redirecting to payment..."
-    });
-  };
 
   const longDescription = book.description || `Join readers worldwide in discovering this compelling book by ${book.author}. "${book.title}" takes readers on a journey through vivid storytelling and profound insights. Perfect for both casual readers and devoted book enthusiasts, this book promises an engaging reading experience that will stay with you long after the final page.`;
 
@@ -154,29 +139,6 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                       <p className="text-sm text-muted-foreground">Available today</p>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Desktop Buttons */}
-              <div className="mt-8">
-                <div className="flex gap-4">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="flex-1 h-12 text-base border-2 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-all duration-200"
-                    onClick={handleAddToCart}
-                  >
-                    <ShoppingCart className="mr-2" size={20} />
-                    Add to Cart
-                  </Button>
-                  <Button
-                    size="lg"
-                    className="flex-1 h-12 text-base bg-islamic-green hover:bg-islamic-green/90 transition-all duration-200"
-                    onClick={handleBuyNow}
-                  >
-                    <CreditCard className="mr-2" size={20} />
-                    Buy Now
-                  </Button>
                 </div>
               </div>
             </div>
