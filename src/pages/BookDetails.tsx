@@ -58,7 +58,7 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       
       <main className="flex-grow">
-        <div className="container mx-auto px-4 py-8 pb-32 sm:pb-8">
+        <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg">
               <img
@@ -130,7 +130,36 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                 </CardContent>
               </Card>
 
-              <div className="hidden sm:block mt-8">
+              {/* Delivery Options */}
+              <div className="space-y-4 border-t border-border pt-4">
+                <h3 className="text-base font-semibold">Delivery Options</h3>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-accent/50">
+                    <div className="w-1 h-1 rounded-full bg-islamic-green mt-2"></div>
+                    <div>
+                      <p className="font-medium">Standard Delivery</p>
+                      <p className="text-sm text-muted-foreground">2-3 business days</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-accent/50">
+                    <div className="w-1 h-1 rounded-full bg-islamic-gold mt-2"></div>
+                    <div>
+                      <p className="font-medium">Express Delivery</p>
+                      <p className="text-sm text-muted-foreground">Next business day</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-accent/50">
+                    <div className="w-1 h-1 rounded-full bg-islamic-green mt-2"></div>
+                    <div>
+                      <p className="font-medium">Store Pickup</p>
+                      <p className="text-sm text-muted-foreground">Available today</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Desktop Buttons */}
+              <div className="hidden md:block mt-8">
                 <div className="flex gap-4">
                   <Button
                     size="lg"
@@ -151,38 +180,33 @@ const BookDetails: FC<BookDetailsProps> = ({ theme, toggleTheme }) => {
                   </Button>
                 </div>
               </div>
-              
-              <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-md border-t border-border sm:hidden shadow-lg">
-                <div className="container mx-auto flex gap-3">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="flex-1 h-14 text-base border-2 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-colors"
-                    onClick={handleAddToCart}
-                  >
-                    <ShoppingCart className="mr-2" size={20} />
-                    Add to Cart
-                  </Button>
-                  <Button
-                    size="lg"
-                    className="flex-1 h-14 text-base bg-islamic-green hover:bg-islamic-green/90 transition-colors shadow-md"
-                    onClick={handleBuyNow}
-                  >
-                    <CreditCard className="mr-2" size={20} />
-                    Buy Now
-                  </Button>
-                </div>
-              </div>
-              
-              <div className="pt-4 border-t border-border">
-                <p className="text-sm text-muted-foreground">
-                  Usually ships within 2-3 business days
-                </p>
-              </div>
             </div>
           </div>
         </div>
       </main>
+      
+      {/* Mobile Buttons - Fixed Position */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-md border-t border-border">
+        <div className="container mx-auto flex gap-3">
+          <Button
+            size="lg"
+            variant="outline"
+            className="flex-1 h-14 text-base border-2 border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white transition-colors"
+            onClick={handleAddToCart}
+          >
+            <ShoppingCart className="mr-2" size={20} />
+            Add to Cart
+          </Button>
+          <Button
+            size="lg"
+            className="flex-1 h-14 text-base bg-islamic-green hover:bg-islamic-green/90 transition-colors shadow-md"
+            onClick={handleBuyNow}
+          >
+            <CreditCard className="mr-2" size={20} />
+            Buy Now
+          </Button>
+        </div>
+      </div>
       
       <Footer />
     </div>
