@@ -1,8 +1,9 @@
+
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, CreditCard } from "lucide-react";
+import { ShoppingCart, CreditCard, Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { featuredBooks, newArrivals } from "@/data/books";
 import Navbar from "../components/Navbar";
